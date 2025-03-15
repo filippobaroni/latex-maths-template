@@ -1,0 +1,68 @@
+\ProvidesPackage{filbar-common}[2025/02/26 v0.1 FilBar Common Styles]
+
+% Support for colours
+\RequirePackage{xcolor}
+
+% SETTINGS
+% Footer rule
+\newlength{\filbar@footerthickness}
+\setlength{\filbar@footerthickness}{.75pt}
+\colorlet{filbar@footer rule color}{black!30}
+
+% Process options
+\ProcessOptionsX\relax
+
+% Microtype package provides advanced typographic features for better readability.
+\RequirePackage{microtype}
+
+% The default theme color is black
+\colorlet{filbar theme color}{black}
+% Commands to set the theme color
+\NewDocumentCommand{\FilBarSetThemeColor}{m}{\colorlet{filbar theme color}{#1}}
+\NewDocumentCommand{\FilBarDefineThemeColor}{mm}{\definecolor{filbar theme color}{#1}{#2}}
+
+% SECTIONS
+% Customise the section headings
+% We want the last number in the section/subsection number to be coloured.
+% The default formatting looks like this:
+% \newcommand*{\sectionformat}{\thesection\autodot\enskip}
+% We modify these, instead of redefining the low-level commands \thesection and \thesubsection,
+% so as not to interfere with (for instance) references to sections.
+\renewcommand*{\sectionformat}{\textcolor{filbar theme color}{\thesection}\autodot\enskip}
+% The default definition for \thesubsection is:
+% \thesection .\@arabic \c@subsection
+\renewcommand*{\subsectionformat}{\thesection .\textcolor{filbar theme color}{\@arabic\c@subsection}\autodot\enskip}
+% Redefine subsubsectionformat as well, although I never plan to use it.
+\renewcommand*{\subsubsectionformat}{\thesubsection .\textcolor{filbar theme color}{\@arabic\c@subsubsection}\autodot\enskip}
+
+% FOOTNOTES
+% Set the footnote mark to be coloured and bold.
+% This is for the mark in the actual footnote:
+\addtokomafont{footnotelabel}{\bfseries\color{filbar theme color}}
+% This is for the mark in the text:
+\addtokomafont{footnotereference}{\bfseries\color{filbar theme color}}
+
+% FOOTER
+% The standard way to customise the footer in KOMA-Script is to use the scrlayer-scrpage package.
+\RequirePackage{scrlayer-scrpage}
+% Pagestyle needs to be set in the class file (different for article and thesis)
+% \pagestyle{scrheadings} or \pagestyle{plain.scrheadings}
+% Customise the footer
+\cfoot*{
+\begin{tikzpicture}[
+evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensate for the line width and avoid overfull hbox
+\node[outer sep=0,inner xsep=.6em,inner ysep=0] (p) at (\textwidth/2,0) {\pagemark}; % The page mark
+\begin{pgfinterruptboundingbox} % Ignore the rule in the bounding box
+\draw[filbar@footer rule color,line width=\filbar@footerthickness,line cap=round] % Set colour, line width and line cap of the footer rule
+({\offset pt},0) -- (p) -- ({\textwidth-(\offset pt)},0); % The rule, from left to page mark to right
+\end{pgfinterruptboundingbox}
+\end{tikzpicture}
+}
+
+% TIKZ
+% Load TikZ
+\RequirePackage{tikz}
+% Maths libraries
+\usetikzlibrary{calc,math}
+% Backgroups library
+\usetikzlibrary{backgrounds}
