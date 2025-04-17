@@ -15,11 +15,20 @@
 % Microtype package provides advanced typographic features for better readability.
 \RequirePackage{microtype}
 
-% The default theme color is black
-\colorlet{filbar theme color}{black}
 % Commands to set the theme color
-\NewDocumentCommand{\FilBarSetThemeColor}{m}{\colorlet{filbar theme color}{#1}}
-\NewDocumentCommand{\FilBarDefineThemeColor}{mm}{\definecolor{filbar theme color}{#1}{#2}}
+\NewDocumentCommand{\FilBarSetThemeColor}{m}{
+\colorlet{filbar theme color}{#1}
+\FilBar@PostSetThemeColor{}
+}
+\NewDocumentCommand{\FilBarDefineThemeColor}{mm}{
+\definecolor{filbar theme color}{#1}{#2}
+\FilBar@PostSetThemeColor{}
+}
+\NewDocumentCommand{\FilBar@PostSetThemeColor}{}{
+\FilBarMakeBullets{}
+}
+% Default theme color
+\AtEndOfClass{\FilBarSetThemeColor{black!50}}
 
 % SECTIONS
 % Customise the section headings
@@ -62,7 +71,23 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 % TIKZ
 % Load TikZ
 \RequirePackage{tikz}
-% Maths libraries
-\usetikzlibrary{calc,math}
-% Backgroups library
-\usetikzlibrary{backgrounds}
+
+
+% Load additional files
+% Decorations (bullet points, etc.)
+\input{filbar-decorations.sty}
+
+% LISTS
+% Load the enumitem package
+\RequirePackage{enumitem}
+% Custom itemize bullet points
+\newsavebox{\filbar@box@itemizebulleti}
+\NewDocumentCommand{\FilBarMakeBullets}{}{
+\savebox{\filbar@box@itemizebulleti}{\FilBarBulletPointI{}}
+}
+
+\setlist[itemize,1]{
+    % label=$\bullet$,
+label=\usebox{\filbar@box@itemizebulleti},
+% label=\ooalign{\hfil\scalebox{.5}{\textcolor{filbar theme color}{$\bullet$}}\hfil\cr$\circ$}
+}

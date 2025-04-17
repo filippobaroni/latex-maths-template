@@ -1,0 +1,23 @@
+\RequirePackage{tikz}
+% Maths libraries
+\usetikzlibrary{calc,math}
+% Node shapes library
+\usetikzlibrary{shapes.geometric}
+
+% \FilBarBulletPointI
+\NewDocumentCommand{\FilBarBulletPointI}{}{%
+\begin{tikzpicture}[baseline=(bullet.base)]
+\node[opacity=0,text=red,inner sep=0pt,outer sep=0pt] (bullet) {$\bullet$};
+\begin{pgfinterruptboundingbox}
+\coordinate (bottom) at ($(bullet.north)!.875!(bullet.south)$);
+\coordinate (centre) at ($(bullet.north)!.5!(bottom)$);
+\tikzmath{
+coordinate \a,\b;
+\a=(bullet.north);
+\b=(bottom);
+\r=(\ay-\by)/2*0.95;
+}
+\node[regular polygon,regular polygon sides=6,inner sep={\r*.707*.85},draw,line width={\r*.4},rounded corners={\r*.25},fill=filbar theme color!50] at (centre) {};
+\end{pgfinterruptboundingbox}
+\end{tikzpicture}%
+}
