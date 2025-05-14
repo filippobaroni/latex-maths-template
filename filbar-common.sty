@@ -12,8 +12,9 @@
 % Process options
 \ProcessOptionsX\relax
 
-% Microtype package provides advanced typographic features for better readability.
-\RequirePackage{microtype}
+% FONTS
+% Use the latinmodern font package
+\RequirePackage{lmodern}
 
 % Commands to set the theme color
 \NewDocumentCommand{\FilBarSetThemeColor}{m}{
@@ -41,8 +42,9 @@
 % The default definition for \thesubsection is:
 % \thesection .\@arabic \c@subsection
 \renewcommand*{\subsectionformat}{\thesection .\textcolor{filbar theme color}{\@arabic\c@subsection}\autodot\enskip}
-% Redefine subsubsectionformat as well, although I never plan to use it.
+% Redefine subsubsectionformat to be inline.
 \renewcommand*{\subsubsectionformat}{\thesubsection .\textcolor{filbar theme color}{\@arabic\c@subsubsection}\autodot\enskip}
+\RedeclareSectionCommand[runin=true]{subsubsection}
 
 % FOOTNOTES
 % Set the footnote mark to be coloured and bold.
@@ -78,8 +80,8 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 \input{filbar-decorations.sty}
 
 % LISTS
-% Load the enumitem package
-\RequirePackage{enumitem}
+% Custom lists (enumroman, enumarabic)
+\usepackage{filbar-lists}
 % Custom itemize bullet points
 \newsavebox{\filbar@box@itemizebulleti}
 \NewDocumentCommand{\FilBarMakeBullets}{}{

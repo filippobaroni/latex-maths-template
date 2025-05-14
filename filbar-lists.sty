@@ -1,0 +1,13 @@
+\ProvidesPackage{filbar-lists}
+
+\RequirePackage{enumitem}
+
+\newlist{enumroman}{enumerate}{1}
+\setlist[enumroman,1] {
+    label=\roman*.
+}
+
+\newlist{enumarabic}{enumerate}{1}
+\setlist[enumarabic,1] {
+    label=\arabic*.
+}
