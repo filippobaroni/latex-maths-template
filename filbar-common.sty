@@ -46,6 +46,17 @@
 \renewcommand*{\subsubsectionformat}{\thesubsection .\textcolor{filbar theme color}{\@arabic\c@subsubsection}\autodot\enskip}
 \RedeclareSectionCommand[runin=true]{subsubsection}
 
+% PARAGRAPHS
+% Customise the paragraph headings
+% I don't plan to ever number paragraphs, but it'd be nice to have some custom formatting.
+\RequirePackage{xstring} % To get the last character
+\NewCommandCopy{\oldparagraph}{\paragraph}
+\renewcommand*{\paragraph}[1]{%
+\StrGobbleRight{#1}{1}[\filbar@parwithoutlast]%
+\StrRight{#1}{1}[\filbar@parlast]%
+\oldparagraph{\filbar@parwithoutlast\textcolor{filbar theme color}{\filbar@parlast}}%
+}
+
 % FOOTNOTES
 % Set the footnote mark to be coloured and bold.
 % This is for the mark in the actual footnote:
@@ -69,6 +80,26 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 \end{pgfinterruptboundingbox}
 \end{tikzpicture}
 }
+
+% FIGURE BOX
+% Customise the appearance of figures, using package tcolorbox
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\tcbset{empty figure box/.style={
+    blanker,
+    oversize=-1em
+}}
+\newtcolorbox{empty figure box}{
+empty figure box
+}
+\newtcolorbox{figure box with footer}{
+empty figure box,
+bottom=.75em,
+borderline south={\filbar@footerthickness}{0pt}{draw=filbar@footer rule color,line cap=round},
+}
+\RequirePackage{filbar-figures}
+\def\filbar@afterfigurebegin{\begin{figure box with footer}\center}
+\def\filbar@beforefigureend{\end{figure box with footer}}
 
 % TIKZ
 % Load TikZ

@@ -1,0 +1,24 @@
+\RequirePackage{caption}
+\RequirePackage{subcaption}
+\RequirePackage{xpatch}
+
+\captionsetup{labelsep=period,subrefformat=parens,singlelinecheck=true,format=plain}
+\counterwithin{figure}{section}
+
+% Commands to execute inside the figure environment.
+% Can be customised by the document class.
+\def\filbar@afterfigurebegin{\center}
+\def\filbar@beforefigureend{}
+\def\filbar@afterfigurepagebegin{\center}
+\def\filbar@beforefigurepageend{}
+
+\NewDocumentEnvironment{myfigure}{}{
+    \begin{figure}[t]\filbar@afterfigurebegin
+}{
+    \filbar@beforefigureend\end{figure}
+}
+\NewDocumentEnvironment{myfigurepage}{}{
+    \begin{figure}[p]\filbar@afterfigurepagebegin
+}{
+    \filbar@beforefigurepageend\end{figure}
+}
