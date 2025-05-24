@@ -11,11 +11,33 @@
 \NewDocumentCommand{\ZZ}{}{\mathbb{Z}}
 \NewDocumentCommand{\RR}{}{\mathbb{R}}
 \NewDocumentCommand{\QQ}{}{\mathbb{Q}}
-\AtBeginDocument{
-    \foreach\letter in {A,...,Z} {
-        \expandafter\xdef\csname\letter\letter\letter\endcsname{\noexpand\mathcal{\letter}}
-    }
-}
+
+\NewDocumentCommand{\AAA}{}{\mathcal{A}}
+\NewDocumentCommand{\BBB}{}{\mathcal{B}}
+\NewDocumentCommand{\CCC}{}{\mathcal{C}}
+\NewDocumentCommand{\DDD}{}{\mathcal{D}}
+\NewDocumentCommand{\EEE}{}{\mathcal{E}}
+\NewDocumentCommand{\FFF}{}{\mathcal{F}}
+\NewDocumentCommand{\GGG}{}{\mathcal{G}}
+\NewDocumentCommand{\HHH}{}{\mathcal{H}}
+\NewDocumentCommand{\III}{}{\mathcal{I}}
+\NewDocumentCommand{\JJJ}{}{\mathcal{J}}
+\NewDocumentCommand{\KKK}{}{\mathcal{K}}
+\NewDocumentCommand{\LLL}{}{\mathcal{L}}
+\NewDocumentCommand{\MMM}{}{\mathcal{M}}
+\NewDocumentCommand{\NNN}{}{\mathcal{N}}
+\NewDocumentCommand{\OOO}{}{\mathcal{O}}
+\NewDocumentCommand{\PPP}{}{\mathcal{P}}
+\NewDocumentCommand{\QQQ}{}{\mathcal{Q}}
+\NewDocumentCommand{\RRR}{}{\mathcal{R}}
+\NewDocumentCommand{\SSS}{}{\mathcal{S}}
+\NewDocumentCommand{\TTT}{}{\mathcal{T}}
+\NewDocumentCommand{\UUU}{}{\mathcal{U}}
+\NewDocumentCommand{\VVV}{}{\mathcal{V}}
+\NewDocumentCommand{\WWW}{}{\mathcal{W}}
+\NewDocumentCommand{\XXX}{}{\mathcal{X}}
+\NewDocumentCommand{\YYY}{}{\mathcal{Y}}
+\NewDocumentCommand{\ZZZ}{}{\mathcal{Z}}
 
 % OBJECTS
 \RenewDocumentCommand{\emptyset}{}{\varnothing}
