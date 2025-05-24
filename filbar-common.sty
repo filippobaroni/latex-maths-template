@@ -12,11 +12,21 @@
 % Process options
 \ProcessOptionsX\relax
 
+% Load utility packages
+% It is necessary to load newclude before other packages
+% In particular, filbar-theorems does not like being loaded after newclude, but I'm unsure why
+\RequirePackage{filbar-utility-packages}
+
+% Load typesetting packages
+% They should probably be loaded early
+\RequirePackage{filbar-typesetting}
+
 % FONTS
 % Use the latinmodern font package
 \RequirePackage{lmodern}
 
-% Commands to set the theme color
+% THEME COLOUR
+% Commands to set the theme colour
 \NewDocumentCommand{\FilBarSetThemeColor}{m}{
 \colorlet{filbar theme color}{#1}
 \FilBar@PostSetThemeColor{}
@@ -27,9 +37,14 @@
 }
 \NewDocumentCommand{\FilBar@PostSetThemeColor}{}{
 \FilBarMakeBullets{}
+\FilBarMakeQED{}
 }
 % Default theme color
 \AtEndOfClass{\FilBarSetThemeColor{black!50}}
+
+% TIKZ
+% Load TikZ
+\RequirePackage{tikz}
 
 % SECTIONS
 % Customise the section headings
@@ -81,6 +96,41 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 \end{tikzpicture}
 }
 
+% Load additional files
+% Decorations (bullet points, QED, etc.)
+\input{filbar-decorations.sty}
+
+% THEOREMS
+% Set custom styling for theorems
+% The relevant code from thmtools to set style is:
+% \def\declaretheorem@ii#1#2{%
+% [...]
+% \def\thmt@envname{#1}
+% [...]
+% \kvsetkeys{thmdef}{#2}
+% [...]
+% }
+\RequirePackage{filbar-theorems}
+\NewDocumentCommand{\filbar@addtheoremstyle}{mO{}}{
+\def\thmt@envname{#1}
+\kvsetkeys{thmdef}{#2}
+}
+\filbar@addtheoremstyle{remark}[qed={\textcolor{filbar theme color}{$\times$}}]
+\filbar@addtheoremstyle{definition}[qed={\textcolor{filbar theme color}{$\times$}}]
+% Define the QED symbol
+\newsavebox{\filbar@box@qed}
+\NewDocumentCommand{\FilBarMakeQED}{}{
+\savebox{\filbar@box@qed}{\color{filbar theme color}\FilBarQED{}}
+}
+\def\qedsymbol{\usebox{\filbar@box@qed}}
+
+% REFERENCES
+% Customise equation tags
+\RequirePackage{amsmath}
+\RequirePackage{zref-clever}
+\patchcmd{\tagform@}{#1}{\textcolor{filbar theme color}{#1}}{}{}
+\zcRefTypeSetup{equation}{reffont=\textcolor{filbar theme color}}
+
 % FIGURE BOX
 % Customise the appearance of figures, using package tcolorbox
 \RequirePackage{tcolorbox}
@@ -101,26 +151,33 @@ borderline south={\filbar@footerthickness}{0pt}{draw=filbar@footer rule color,li
 \def\filbar@afterfigurebegin{\begin{figure box with footer}\center}
 \def\filbar@beforefigureend{\end{figure box with footer}}
 
-% TIKZ
-% Load TikZ
-\RequirePackage{tikz}
-
-
-% Load additional files
-% Decorations (bullet points, etc.)
-\input{filbar-decorations.sty}
+% ALGORITHMS
+\RequirePackage{filbar-algorithms}
+\filbar@addtheoremstyle{filbar@problem}[qed={\textcolor{filbar theme color}{$\times$}}]
 
 % LISTS
 % Custom lists (enumroman, enumarabic)
-\usepackage{filbar-lists}
+\RequirePackage{filbar-lists}
 % Custom itemize bullet points
 \newsavebox{\filbar@box@itemizebulleti}
 \NewDocumentCommand{\FilBarMakeBullets}{}{
 \savebox{\filbar@box@itemizebulleti}{\FilBarBulletPointI{}}
 }
 
-\setlist[itemize,1]{
+\setlist*[itemize,1]{
     % label=$\bullet$,
 label=\usebox{\filbar@box@itemizebulleti},
 % label=\ooalign{\hfil\scalebox{.5}{\textcolor{filbar theme color}{$\bullet$}}\hfil\cr$\circ$}
 }
+
+% Custom enumgroup labels and references
+\setlist*[enumgrouped,1] {
+    ref={(\alph*\textcolor{filbar theme color}{.}$-$)},
+}
+\setlist*[filbar@itemgroup,1]{
+    label=(\alph{enumgroupedi}\textcolor{filbar theme color}{.}\arabic*)
+}
+
+% BIBLIOGRAPHY
+\RequirePackage{filbar-bibliography}
+\DeclareFieldFormat{labelnumber}{\textcolor{filbar theme color}{#1}}

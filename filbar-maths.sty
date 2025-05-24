@@ -1,0 +1,126 @@
+\ProvidesPackage{filbar-maths}
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{amsfonts}
+\RequirePackage{mathtools}
+
+\allowdisplaybreaks
+
+% LETTERS
+\NewDocumentCommand{\ZZ}{}{\mathbb{Z}}
+\NewDocumentCommand{\RR}{}{\mathbb{R}}
+\NewDocumentCommand{\QQ}{}{\mathbb{Q}}
+\AtBeginDocument{
+    \foreach\letter in {A,...,Z} {
+        \expandafter\xdef\csname\letter\letter\letter\endcsname{\noexpand\mathcal{\letter}}
+    }
+}
+
+% OBJECTS
+\RenewDocumentCommand{\emptyset}{}{\varnothing}
+\DeclareMathOperator{\id}{id}
+
+% \SL{<n>}{<field>}
+\NewDocumentCommand{\SL}{mm}{\operatorname{SL}(#1,#2)}
+
+% UNARY OPERATORS
+\NewDocumentCommand{\boundary}{}{\partial}
+
+% BINARY OPERATORS
+\RenewDocumentCommand{\le}{}{\leqslant}
+\RenewDocumentCommand{\leq}{}{\leqslant}
+\RenewDocumentCommand{\ge}{}{\geqslant}
+\RenewDocumentCommand{\geq}{}{\geqslant}
+\NewDocumentCommand{\subs}{}{\subseteq}
+\NewDocumentCommand{\iso}{}{\cong}
+\NewDocumentCommand{\homeo}{}{\cong}
+\NewDocumentCommand{\cut}{}{\mathbin{\setminus\hspace{-.12em}\setminus}}
+
+% Custom \setminus
+% https://tex.stackexchange.com/a/87193/218009
+\RequirePackage{tikz}
+\newsavebox{\filbar@setminusD}
+\sbox{\filbar@setminusD}{\hbox{\tikz{\draw[line width=0.4pt,line cap=round]
+(3pt,0) -- (0,6pt);}}}
+\newsavebox{\filbar@setminusT}
+\sbox{\filbar@setminusT}{\usebox{\filbar@setminusD}}
+\newsavebox{\filbar@setminusS}
+\sbox{\filbar@setminusS}{\hbox{\tikz{\draw[line width=0.4pt,line
+cap=round] (2pt,0) -- (0,4pt);}}}
+\newsavebox{\filbar@setminusSS}
+\sbox{\filbar@setminusSS}{\hbox{\tikz{\draw[line width=0.4pt,line cap=round] (1.5pt,0) -- (0,3pt);}}}
+\RenewDocumentCommand{\setminus}{}{\mathbin{\mathchoice{\usebox{\filbar@setminusD}}{\usebox{\filbar@setminusT}}{\usebox{\filbar@setminusS}}{\usebox{\filbar@setminusSS}}}}
+
+% Quotient
+\RequirePackage{faktor}
+\NewDocumentCommand{\quotient}{mm}{%
+    \faktor{#1}{#2}%
+}
+
+% AROUND
+\NewDocumentCommand{\card}{m}{\lvert #1 \rvert}
+\NewDocumentCommand{\Card}{m}{\left\lvert #1 \right\rvert}
+\NewDocumentCommand{\abs}{m}{\lvert #1 \rvert}
+\NewDocumentCommand{\Abs}{m}{\left\lvert #1 \right\rvert}
+\NewDocumentCommand{\norm}{om}{\lVert #2 \rVert\IfValueT{#1}{_{#1}}}
+\NewDocumentCommand{\Norm}{om}{\left\lVert #2 \right\rVert\IfValueT{#1}{_{#1}}}
+
+% FUNCTIONS
+\NewDocumentCommand{\map}{mmm}{#1\colon\umap{#2}{#3}}
+\NewDocumentCommand{\umap}{mm}{%
+    #1\mathchoice{\longrightarrow}{\to}{\to}{\to}#2
+}
+
+% OPERATOR NAMES
+\DeclareMathOperator{\trace}{tr}
+\NewDocumentCommand{\interior}{m}{\operatorname{int}(#1)}
+\NewDocumentCommand{\closure}{m}{\operatorname{cl}(#1)}
+\DeclareMathOperator{\Mcg}{Mcg}
+
+% ABOVE
+
+% Overline
+\RenewDocumentCommand{\bar}{m}{\overline{#1}}
+
+% Wide hat and tilde
+% https://tex.stackexchange.com/questions/3682/how-do-i-lower-the-widetilde-accent-i-e-move-it-closer-to-the-variable
+\makeatletter 
+\NewDocumentCommand{\wtilde}{m}{\mathpalette\wtildehelper{#1}}
+\NewDocumentCommand{\wtildehelper}{mm}{%
+    \hbox{\dimen@\accentfontxheight#1%
+        \accentfontxheight#1 1.15\dimen@
+        $\m@th#1\widetilde{#2}$%
+        \accentfontxheight#1\dimen@
+    }%
+}
+\NewDocumentCommand{\what}{m}{\mathpalette\whathelper{#1}}
+\NewDocumentCommand{\whathelper}{mm}{%
+    \hbox{\dimen@\accentfontxheight#1%
+        \accentfontxheight#1 1.15\dimen@
+        $\m@th#1\widehat{#2}$%
+        \accentfontxheight#1\dimen@
+    }%
+}
+\NewDocumentCommand{\accentfontxheight}{m}{%
+    \fontdimen5\ifx#1\displaystyle
+        \textfont
+    \else\ifx#1\textstyle
+        \textfont
+    \else\ifx#1\scriptstyle
+        \scriptfont
+    \else
+        \scriptscriptfont
+    \fi\fi\fi3
+}
+\makeatother
+
+% ALIGN WITH ASIDE
+\RequirePackage{varwidth}
+\NewDocumentEnvironment{alignaside}{sO{1}}{%
+    \bgroup
+    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#2\linewidth}##1\end{varwidth}}
+    \IfBooleanTF{#1}{\start@align\@ne\st@rredtrue\m@ne}{\align}
+}{%
+    \endalign\egroup
+}

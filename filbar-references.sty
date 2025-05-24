@@ -5,10 +5,50 @@
 
 \zcsetup{
     noabbrev,
-    cap,
     comp,
     sort,
-    lastsep={,\ and\ }
+    lastsep={,\ and\ },
+    % rangesep={\==},
 }
 
+% Equation references
+\zcRefTypeSetup{equation}{
+    Name-sg=,
+    Name-pl=,
+    name-sg=,
+    name-pl=,
+}
+
+% In zref-clever, general settings take priority, followed by type-specific settings,
+% followed by language-specific settings. Here, we want all references to be
+% capitalised, except for a few exceptions. Therefore, we set language-specific
+% settings to be capitalised, and then override them for the exceptions.
+
+\zcLanguageSetup{english}{
+    cap,
+}
+
+\zcRefTypeSetup{property}{
+    Name-sg=Property,
+    Name-pl=Properties,
+    name-sg=property,
+    name-pl=properties,
+    nocap
+}
+\zcRefTypeSetup{condition}{
+    Name-sg=Condition,
+    Name-pl=Conditions,
+    name-sg=condition,
+    name-pl=conditions,
+    nocap
+}
+\zcRefTypeSetup{statement}{
+    Name-sg=Statement,
+    Name-pl=Statements,
+    name-sg=statement,
+    name-pl=statements,
+    nocap
+}
+
+% hyperref settings
 \hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=black,urlcolor=black}

@@ -1,13 +1,42 @@
 \ProvidesPackage{filbar-lists}
 
 \RequirePackage{enumitem}
+\RequirePackage{zref-clever}
 
 \newlist{enumroman}{enumerate}{1}
-\setlist[enumroman,1] {
-    label=\roman*.
+\setlist*[enumroman,1] {
+    label=(\roman*),
 }
+\zcsetup{countertype={enumromani=item}}
 
 \newlist{enumarabic}{enumerate}{1}
-\setlist[enumarabic,1] {
-    label=\arabic*.
+\setlist*[enumarabic,1] {
+    label=\arabic*.,
+    ref=\arabic*,
+}
+\zcsetup{countertype={enumarabici=item}}
+
+% ENUMGROUPED
+% Lists where items are grouped in groups.
+% Inside the enumgrouped environment, items are grouped within the itemgroup environment.
+% \begin{itemgroup}[<label>][<zcref options>]
+\newlist{enumgrouped}{enumerate}{1}
+\newlist{filbar@itemgroup}{enumerate}{1}
+\setlist*[enumgrouped,1] {
+    label={},
+    ref={(\alph*.$-$)},
+    resume=enum_grouped_series
+}
+\setlist*[filbar@itemgroup,1] {
+    label=(\alph{enumgroupedi}.\arabic*),
+    leftmargin=0pt,
+}
+\NewDocumentEnvironment{itemgroup}{oo}{%
+    \item\bgroup%
+    \IfValueT{#2}{\zcsetup{#2}}%
+    \IfValueT{#1}{\label{#1}}%
+    \egroup%
+    \begin{filbar@itemgroup}
+}{%
+    \end{filbar@itemgroup}%
 }

@@ -1,0 +1,26 @@
+\ProvidesPackage{filbar-algorithms}
+
+\NewDocumentCommand{\bigO}{}{\mathcal{O}}
+\NewDocumentCommand{\NP}{}{$\operatorname{NP}$}
+\NewDocumentCommand{\Ptime}{}{$\operatorname{P}$}
+\NewDocumentCommand{\problemname}{m}{\textsc{#1}}
+
+% Algorithmic problem environment
+\RequirePackage{filbar-theorems}
+\declaretheoremstyle[bodyfont=\normalfont]{problemstyle}
+\declaretheorem[numbered=no,style=problemstyle,name=Problem]{filbar@algoproblem}
+
+% NOTE: use \leavevmode first thing in the environment if there is no text before the input.
+\NewDocumentEnvironment{algoproblem}{O{}}{
+    \begin{filbar@algoproblem}[#1]
+    \NewDocumentCommand{\Input}{m}{
+        \leavevmode\begin{description}[]
+        \item\textbf{Input:} ##1
+    }
+    \NewDocumentCommand{\Output}{m}{
+        \item\textbf{Output:} ##1\qedhere
+        \end{description}
+    }
+}{
+    \end{filbar@algoproblem}
+}

@@ -7,7 +7,7 @@
 % \FilBarBulletPointI
 \NewDocumentCommand{\FilBarBulletPointI}{}{%
 \begin{tikzpicture}[baseline=(bullet.base)]
-\node[opacity=0,text=red,inner sep=0pt,outer sep=0pt] (bullet) {$\bullet$};
+\node[opacity=0,inner sep=0pt,outer sep=0pt] (bullet) {$\bullet$};
 \begin{pgfinterruptboundingbox}
 \coordinate (bottom) at ($(bullet.north)!.875!(bullet.south)$);
 \coordinate (centre) at ($(bullet.north)!.5!(bottom)$);
@@ -20,4 +20,20 @@ coordinate \a,\b;
 \node[regular polygon,regular polygon sides=6,inner sep={\r*.707*.85},draw,line width={\r*.4},rounded corners={\r*.25},fill=filbar theme color!50] at (centre) {};
 \end{pgfinterruptboundingbox}
 \end{tikzpicture}%
+}
+
+% \FilBarQED
+\NewDocumentCommand{\FilBarQED}{}{%
+\begin{tikzpicture}[baseline=(openbox.base)]
+    \node[opacity=0,inner sep=0pt,outer sep=0pt,inner xsep=-1em] (openbox) {$\openbox$};
+    \begin{pgfinterruptboundingbox}
+    \tikzmath{
+    coordinate \a,\b,\c;
+    \a=(openbox.north);
+    \b=(openbox.south);
+    \r=(\ay-\by)/2-.2pt;
+    }
+    \draw[draw=.,line width=.4pt,rounded corners=1.5pt,shift={(openbox.center)}] (\r pt,\r pt) rectangle (-\r pt,-\r pt);
+    \end{pgfinterruptboundingbox}
+    \end{tikzpicture}
 }
