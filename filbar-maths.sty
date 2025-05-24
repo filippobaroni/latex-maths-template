@@ -117,10 +117,17 @@ cap=round] (2pt,0) -- (0,4pt);}}}
 
 % ALIGN WITH ASIDE
 \RequirePackage{varwidth}
-\NewDocumentEnvironment{alignaside}{sO{1}}{%
+\NewDocumentEnvironment{alignaside}{O{1}}{%
     \bgroup
-    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#2\linewidth}##1\end{varwidth}}
-    \IfBooleanTF{#1}{\start@align\@ne\st@rredtrue\m@ne}{\align}
+    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}
+    \align
+}{%
+    \endalign\egroup
+}
+\NewDocumentEnvironment{alignaside*}{O{1}}{%
+    \bgroup
+    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}
+    \start@align\@ne\st@rredtrue\m@ne
 }{%
     \endalign\egroup
 }
