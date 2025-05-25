@@ -65,9 +65,11 @@
 % Customise the paragraph headings
 % I don't plan to ever number paragraphs, but it'd be nice to have some custom formatting.
 \RedeclareSectionCommand[beforeskip=0pt]{paragraph}
+\setkomafont{paragraph}{\normalfont\bfseries}
 \RequirePackage{xstring} % To get the last character
 \NewCommandCopy{\oldparagraph}{\paragraph}
 \renewcommand*{\paragraph}[1]{%
+\noexpandarg%
 \StrGobbleRight{#1}{1}[\filbar@parwithoutlast]%
 \StrRight{#1}{1}[\filbar@parlast]%
 \oldparagraph{\filbar@parwithoutlast\textcolor{filbar theme color}{\filbar@parlast}}%
@@ -130,7 +132,7 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 \RequirePackage{amsmath}
 \RequirePackage{zref-clever}
 \patchcmd{\tagform@}{#1}{\textcolor{filbar theme color}{#1}}{}{}
-\zcRefTypeSetup{equation}{reffont=\textcolor{filbar theme color}}
+\zcRefTypeSetup{equation}{reffont=\color{filbar theme color}}
 
 % FIGURE BOX
 % Customise the appearance of figures, using package tcolorbox
