@@ -64,6 +64,7 @@
 % PARAGRAPHS
 % Customise the paragraph headings
 % I don't plan to ever number paragraphs, but it'd be nice to have some custom formatting.
+\RedeclareSectionCommand[beforeskip=0pt]{paragraph}
 \RequirePackage{xstring} % To get the last character
 \NewCommandCopy{\oldparagraph}{\paragraph}
 \renewcommand*{\paragraph}[1]{%
@@ -111,12 +112,12 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 % [...]
 % }
 \RequirePackage{filbar-theorems}
-\NewDocumentCommand{\filbar@addtheoremstyle}{mO{}}{
+\NewDocumentCommand{\FilBarAddTheoremStyle}{mO{}}{
 \def\thmt@envname{#1}
 \kvsetkeys{thmdef}{#2}
 }
-\filbar@addtheoremstyle{remark}[qed={\textcolor{filbar theme color}{$\times$}}]
-\filbar@addtheoremstyle{definition}[qed={\textcolor{filbar theme color}{$\times$}}]
+\FilBarAddTheoremStyle{remark}[qed={\textcolor{filbar theme color}{$\times$}}]
+\FilBarAddTheoremStyle{definition}[qed={\textcolor{filbar theme color}{$\times$}}]
 % Define the QED symbol
 \newsavebox{\filbar@box@qed}
 \NewDocumentCommand{\FilBarMakeQED}{}{
@@ -153,7 +154,7 @@ borderline south={\filbar@footerthickness}{0pt}{draw=filbar@footer rule color,li
 
 % ALGORITHMS
 \RequirePackage{filbar-algorithms}
-\filbar@addtheoremstyle{filbar@problem}[qed={\textcolor{filbar theme color}{$\times$}}]
+\FilBarAddTheoremStyle{filbar@algoproblem}[qed={\textcolor{filbar theme color}{$\times$}}]
 
 % LISTS
 % Custom lists (enumroman, enumarabic)
@@ -165,9 +166,11 @@ borderline south={\filbar@footerthickness}{0pt}{draw=filbar@footer rule color,li
 }
 
 \setlist*[itemize,1]{
-    % label=$\bullet$,
 label=\usebox{\filbar@box@itemizebulleti},
-% label=\ooalign{\hfil\scalebox{.5}{\textcolor{filbar theme color}{$\bullet$}}\hfil\cr$\circ$}
+}
+
+\setlist*[enumarabic,1] {
+label={\arabic*\textcolor{filbar theme color}{.}},
 }
 
 % Custom enumgroup labels and references

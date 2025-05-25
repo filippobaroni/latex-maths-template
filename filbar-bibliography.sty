@@ -2,3 +2,18 @@
 
 \usepackage[date=year,sortcites,giveninits=false,doi=false,isbn=false,url=false,style=ext-numeric,maxbibnames=99]{biblatex}
 \DefineBibliographyExtras{UKenglish}{\def\finalandcomma{\addcomma}}
+
+\AtEveryBibitem{
+\clearfield{urlyear}
+\clearfield{pubstate}
+}
+
+\DeclareSourcemap{%
+  \maps[datatype=bibtex]{
+    % Journal abbreviations
+    \map[overwrite]{
+      \step[fieldsource=shortjournal]
+      \step[fieldset=journaltitle,origfieldval]
+    }
+  }
+}
