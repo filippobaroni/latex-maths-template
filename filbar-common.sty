@@ -67,13 +67,16 @@
 \RedeclareSectionCommand[afterskip=0pt]{paragraph}
 \setkomafont{paragraph}{\normalfont\bfseries}
 \RequirePackage{xstring} % To get the last character
-\NewCommandCopy{\oldparagraph}{\paragraph}
 \AtBeginDocument{
+\NewCommandCopy{\oldparagraph}{\paragraph}
 \renewcommand*{\paragraph}[1]{%
 \noexpandarg%
 \StrGobbleRight{#1}{1}[\filbar@parwithoutlast]%
 \StrRight{#1}{1}[\filbar@parlast]%
+\let\old@secpenalty\@secpenalty
+\def\@secpenalty{0}%
 \oldparagraph{\filbar@parwithoutlast\textcolor{filbar theme color}{\filbar@parlast}}%
+\let\@secpenalty\old@secpenalty%
 }}
 
 % FOOTNOTES
