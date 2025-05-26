@@ -28,5 +28,30 @@
 % Plain page style with no headings
 \pagestyle{plain.scrheadings}
 
-% Load the common styles
+% LOAD the common styles
 \RequirePackage{filbar-common}
+
+% SPACING
+% Micromanaging spacing for theorems and proofs
+% This removes extra spacing above and below all theorems.
+% It's a very low-level hack (directly into amsthm), and it
+% probably invalidates attempts to change the spacing from a
+% higher level (e.g. thmtools)
+\def\thm@space@setup{
+    \thm@preskip=0pt
+    \thm@postskip=0pt
+}
+% Hard-coded spacing for proof environment. I don't really understand where
+% the numbers come from, ideally I would find precise numbers in the definitions,
+% but for now this works.
+\AtBeginEnvironment{proof}{
+  \setlength{\partopsep}{.9pt}
+  \setlength{\parskip}{\parskip}
+  \vspace*{-\parskip}
+}
+\AtEndEnvironment{proof}{
+  \vspace*{-\parskip}
+}
+
+% Reduce spacing before paragraphs
+\RedeclareSectionCommand[beforeskip=0pt plus 1ex]{paragraph}

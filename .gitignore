@@ -1,6 +1,5 @@
 # Test files
-test.*
-test/*
+test*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux

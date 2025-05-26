@@ -64,16 +64,17 @@
 % PARAGRAPHS
 % Customise the paragraph headings
 % I don't plan to ever number paragraphs, but it'd be nice to have some custom formatting.
-\RedeclareSectionCommand[beforeskip=0pt]{paragraph}
+\RedeclareSectionCommand[afterskip=0pt]{paragraph}
 \setkomafont{paragraph}{\normalfont\bfseries}
 \RequirePackage{xstring} % To get the last character
 \NewCommandCopy{\oldparagraph}{\paragraph}
+\AtBeginDocument{
 \renewcommand*{\paragraph}[1]{%
 \noexpandarg%
 \StrGobbleRight{#1}{1}[\filbar@parwithoutlast]%
 \StrRight{#1}{1}[\filbar@parlast]%
 \oldparagraph{\filbar@parwithoutlast\textcolor{filbar theme color}{\filbar@parlast}}%
-}
+}}
 
 % FOOTNOTES
 % Set the footnote mark to be coloured and bold.
