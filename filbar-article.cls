@@ -10,11 +10,15 @@
 % Process options
 \ProcessOptions\relax
 
-% Set page size and layout
+% Set page size and layout - part I
 \PassOptionsToPackage{paper=a4,pagesize=auto}{typearea}
 
 % Load the KOMA-Script class
-\LoadClass[parskip=half,11pt]{scrartcl}
+\LoadClass[parskip=half,11pt,usegeometry]{scrartcl}
+
+% Set page size and layout - part II
+\RequirePackage{geometry}
+\geometry{footskip=2em,top=1.2in,bottom=1.5in,includefoot}
 
 % The abstract is, internally, just a quotation environment.
 % Since we are using parskip instead of intendation, we want to use the quote environment instead, which matches the spacing of the rest of the document.
@@ -38,15 +42,14 @@
 % probably invalidates attempts to change the spacing from a
 % higher level (e.g. thmtools)
 \def\thm@space@setup{
-    \thm@preskip=0pt
+    \thm@preskip=0pt plus 2pt
     \thm@postskip=0pt
 }
 % Hard-coded spacing for proof environment. I don't really understand where
 % the numbers come from, ideally I would find precise numbers in the definitions,
 % but for now this works.
 \AtBeginEnvironment{proof}{
-  \setlength{\partopsep}{.9pt}
-  \setlength{\parskip}{\parskip}
+  \setlength{\partopsep}{.9pt plus 1pt}
   \vspace*{-\parskip}
 }
 \AtEndEnvironment{proof}{
