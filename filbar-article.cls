@@ -11,14 +11,14 @@
 \ProcessOptions\relax
 
 % Set page size and layout - part I
-\PassOptionsToPackage{paper=a4,pagesize=auto}{typearea}
+\PassOptionsToPackage{paper=a4,pagesize=auto,usegeometry}{typearea}
 
 % Load the KOMA-Script class
-\LoadClass[parskip=half,11pt,usegeometry]{scrartcl}
+\LoadClass[parskip=half,11pt]{scrartcl}
 
 % Set page size and layout - part II
 \RequirePackage{geometry}
-\geometry{footskip=2em,top=1.2in,bottom=1.5in,includefoot}
+\geometry{footskip=2.5em,top=1.2in,bottom=1.5in,includefoot}
 
 % The abstract is, internally, just a quotation environment.
 % Since we are using parskip instead of intendation, we want to use the quote environment instead, which matches the spacing of the rest of the document.
