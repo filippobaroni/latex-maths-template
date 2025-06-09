@@ -139,16 +139,22 @@ cap=round] (2pt,0) -- (0,4pt);}}}
 % ALIGN WITH ASIDE
 \RequirePackage{varwidth}
 \NewDocumentEnvironment{alignaside}{O{1}}{%
-    \bgroup
-    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}
+    \bgroup%
+    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}%
     \align
 }{%
-    \endalign\egroup
+    \endalign\egroup%
 }
 \NewDocumentEnvironment{alignaside*}{O{1}}{%
-    \bgroup
-    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}
+    \bgroup%
+    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}%
     \start@align\@ne\st@rredtrue\m@ne
 }{%
-    \endalign\egroup
+    \endalign\egroup%
+}
+\NewDocumentEnvironment{asidecontext}{O{1}}{%
+    \bgroup
+    \NewDocumentCommand{\aside}{m}{\begin{varwidth}[t]{#1\linewidth}##1\end{varwidth}}
+}{%
+    \egroup%
 }
