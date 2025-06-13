@@ -20,6 +20,21 @@
 \RequirePackage{geometry}
 \geometry{footskip=2.5em,top=1.2in,bottom=1.5in,includefoot}
 
+% SECTIONS
+% Customise the section headings
+% We want the last number in the section/subsection number to be coloured.
+% The default formatting looks like this:
+% \newcommand*{\sectionformat}{\thesection\autodot\enskip}
+% We modify these, instead of redefining the low-level commands \thesection and \thesubsection,
+% so as not to interfere with (for instance) references to sections.
+\renewcommand*{\sectionformat}{\textcolor{filbar theme color}{\thesection}\autodot\enskip}
+% The default definition for \thesubsection is:
+% \thesection .\@arabic \c@subsection
+\renewcommand*{\subsectionformat}{\thesection .\textcolor{filbar theme color}{\@arabic\c@subsection}\autodot\enskip}
+% Redefine subsubsectionformat to be inline.
+\renewcommand*{\subsubsectionformat}{\thesubsection .\textcolor{filbar theme color}{\@arabic\c@subsubsection}\autodot\enskip}
+\RedeclareSectionCommand[runin=true]{subsubsection}
+
 % The abstract is, internally, just a quotation environment.
 % Since we are using parskip instead of intendation, we want to use the quote environment instead, which matches the spacing of the rest of the document.
 % We redefine the abstract environment to use the quote environment instead.

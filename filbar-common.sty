@@ -46,21 +46,6 @@
 % Load TikZ
 \RequirePackage{tikz}
 
-% SECTIONS
-% Customise the section headings
-% We want the last number in the section/subsection number to be coloured.
-% The default formatting looks like this:
-% \newcommand*{\sectionformat}{\thesection\autodot\enskip}
-% We modify these, instead of redefining the low-level commands \thesection and \thesubsection,
-% so as not to interfere with (for instance) references to sections.
-\renewcommand*{\sectionformat}{\textcolor{filbar theme color}{\thesection}\autodot\enskip}
-% The default definition for \thesubsection is:
-% \thesection .\@arabic \c@subsection
-\renewcommand*{\subsectionformat}{\thesection .\textcolor{filbar theme color}{\@arabic\c@subsection}\autodot\enskip}
-% Redefine subsubsectionformat to be inline.
-\renewcommand*{\subsubsectionformat}{\thesubsection .\textcolor{filbar theme color}{\@arabic\c@subsubsection}\autodot\enskip}
-\RedeclareSectionCommand[runin=true]{subsubsection}
-
 % PARAGRAPHS
 % Customise the paragraph headings
 % I don't plan to ever number paragraphs, but it'd be nice to have some custom formatting.
@@ -92,7 +77,7 @@
 % Pagestyle needs to be set in the class file (different for article and thesis)
 % \pagestyle{scrheadings} or \pagestyle{plain.scrheadings}
 % Customise the footer
-\cfoot*{
+\cfoot*{%
 \begin{tikzpicture}[
 evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensate for the line width and avoid overfull hbox
 \node[outer sep=0,inner xsep=.6em,inner ysep=0] (p) at (\textwidth/2,0) {\pagemark}; % The page mark
@@ -100,8 +85,10 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 \draw[filbar@footer rule color,line width=\filbar@footerthickness,line cap=round] % Set colour, line width and line cap of the footer rule
 ({\offset pt},0) -- (p) -- ({\textwidth-(\offset pt)},0); % The rule, from left to page mark to right
 \end{pgfinterruptboundingbox}
-\end{tikzpicture}
+\end{tikzpicture}%
 }
+\ofoot*{}
+\ifoot*{}
 
 % Load additional files
 % Decorations (bullet points, QED, etc.)
