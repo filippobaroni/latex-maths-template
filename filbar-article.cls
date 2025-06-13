@@ -12,8 +12,10 @@
 
 % Set page size and layout - part I
 \PassOptionsToPackage{paper=a4,pagesize=auto,usegeometry}{typearea}
+\PassOptionsToPackage{paper=a4,pagesize=auto,usegeometry}{typearea}
 
 % Load the KOMA-Script class
+\LoadClass[parskip=half,11pt]{scrartcl}
 \LoadClass[parskip=half,11pt]{scrartcl}
 
 % Set page size and layout - part II

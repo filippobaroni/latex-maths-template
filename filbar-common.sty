@@ -14,7 +14,7 @@
 
 % Load utility packages
 % It is necessary to load newclude before other packages
-% In particular, filbar-theorems does not like being loaded after newclude, but I'm unsure why
+% In particular, filbar-theorems does not like being loaded before newclude, but I'm unsure why
 \RequirePackage{filbar-utility-packages}
 
 % Load typesetting packages
@@ -94,6 +94,10 @@ evaluate={\offset=\filbar@footerthickness/2;}] % Very small offset, to compensat
 % Decorations (bullet points, QED, etc.)
 \input{filbar-decorations.sty}
 
+% MATHS
+% amsmath needs to beloaded before amsthm
+\RequirePackage{filbar-maths}
+
 % THEOREMS
 % Set custom styling for theorems
 % The relevant code from thmtools to set style is:
@@ -168,7 +172,7 @@ label={\arabic*\textcolor{filbar theme color}{.}},
 
 % Custom enumgroup labels and references
 \setlist*[enumgrouped,1] {
-    ref={(\alph*\textcolor{filbar theme color}{.}$-$)},
+    ref={(\alph*\textcolor{filbar theme color}{.})},
 }
 \setlist*[filbar@itemgroup,1]{
     label=(\alph{enumgroupedi}\textcolor{filbar theme color}{.}\arabic*)
