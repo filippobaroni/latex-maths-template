@@ -11,10 +11,14 @@
 \ProcessOptions\relax
 
 % Set page size and layout
-\PassOptionsToPackage{paper=a4,pagesize=auto}{typearea}
+\PassOptionsToPackage{paper=a4,pagesize=auto,usegeometry}{typearea}
 
 % Load the KOMA-Script class
 \LoadClass[12pt]{scrbook}
+
+% Set page size and layout - part II
+\RequirePackage{geometry}
+\geometry{footskip=2em}
 
 % SECTIONS
 % Customise the section headings
