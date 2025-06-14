@@ -4,7 +4,8 @@
 \RequirePackage{thmtools}
 \RequirePackage{zref-clever}
 
-\declaretheorem[numberwithin=section]{theorem}
+\@ifundefined{filbar@numbertheoremswithin}{\def\filbar@numbertheoremswithin{section}}{}
+\declaretheorem[numberwithin=\filbar@numbertheoremswithin]{theorem}
 \declaretheorem[numberlike=theorem]{lemma}
 \declaretheorem[numberlike=theorem]{corollary}
 \declaretheorem[numberlike=theorem]{proposition}
