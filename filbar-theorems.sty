@@ -14,5 +14,17 @@
 
 \declaretheorem[name=Theorem]{theoremintro}
 \renewcommand*{\thetheoremintro}{\Alph{theoremintro}}
-\declaretheorem[name=Corollary]{corollaryintro}
+\declaretheorem[numberlike=theoremintro,name=Corollary]{corollaryintro}
 \renewcommand*{\thecorollaryintro}{\Alph{corollaryintro}}
+\zcRefTypeSetup{theoremintro}{
+    Name-sg=Theorem,
+    Name-pl=Theorems,
+    name-sg=theorem,
+    name-pl=theorems,
+}
+\zcRefTypeSetup{corollaryintro}{
+    Name-sg=Corollary,
+    Name-pl=Corollaries,
+    name-sg=corollary,
+    name-pl=corollaries,
+}
