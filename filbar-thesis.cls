@@ -50,3 +50,4 @@
 % Increase spacing between lines
 \RequirePackage{setspaceenhanced}
 \spacesetup{onehalfspacing}
+\captionsetup{font=onehalfspacing}
