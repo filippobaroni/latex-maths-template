@@ -4,9 +4,27 @@
 \RequirePackage{thmtools}
 \RequirePackage{zref-clever}
 
-\declaretheorem[numberwithin=section]{theorem}
+\@ifundefined{filbar@numbertheoremswithin}{\def\filbar@numbertheoremswithin{section}}{}
+\declaretheorem[numberwithin=\filbar@numbertheoremswithin]{theorem}
 \declaretheorem[numberlike=theorem]{lemma}
 \declaretheorem[numberlike=theorem]{corollary}
 \declaretheorem[numberlike=theorem]{proposition}
 \declaretheorem[numberlike=theorem,style=remark]{remark}
 \declaretheorem[numberlike=theorem,style=definition]{definition}
+
+\declaretheorem[name=Theorem]{theoremintro}
+\renewcommand*{\thetheoremintro}{\Alph{theoremintro}}
+\declaretheorem[numberlike=theoremintro,name=Corollary]{corollaryintro}
+\renewcommand*{\thecorollaryintro}{\Alph{corollaryintro}}
+\zcRefTypeSetup{theoremintro}{
+    Name-sg=Theorem,
+    Name-pl=Theorems,
+    name-sg=theorem,
+    name-pl=theorems,
+}
+\zcRefTypeSetup{corollaryintro}{
+    Name-sg=Corollary,
+    Name-pl=Corollaries,
+    name-sg=corollary,
+    name-pl=corollaries,
+}

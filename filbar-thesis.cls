@@ -15,10 +15,14 @@
 \ProcessOptions\relax
 
 % Set page size and layout
-\PassOptionsToPackage{paper=a4,pagesize=auto}{typearea}
+\PassOptionsToPackage{paper=a4,pagesize=auto,usegeometry}{typearea}
 
 % Load the KOMA-Script class
 \LoadClass[12pt,headings=chapterwithprefix]{scrbook}
+
+% Set page size and layout - part II
+\RequirePackage{geometry}
+\geometry{footskip=2em}
 
 % SECTIONS
 % Customise the section headings
@@ -39,6 +43,10 @@
 % Plain page style with no headings
 \pagestyle{plain.scrheadings}
 
+% THEOREM NUMBERING
+% Number theorems within chapters
+\def\filbar@numbertheoremswithin{chapter}
+
 % LOAD the common styles
 \RequirePackage{filbar-common}
 
@@ -46,6 +54,7 @@
 % Increase spacing between lines
 \RequirePackage{setspaceenhanced}
 \spacesetup{onehalfspacing}
+\captionsetup{font=onehalfspacing}
 
 % CHAPTERS
 % We have some very fancy chapter headings.

@@ -3,7 +3,8 @@
 \RequirePackage{xpatch}
 
 \captionsetup{labelsep=period,subrefformat=parens,singlelinecheck=true,format=plain}
-\counterwithin{figure}{section}
+\@ifundefined{filbar@numbertheoremswithin}{\def\filbar@numbertheoremswithin{section}}{}
+\counterwithin{figure}{\filbar@numbertheoremswithin}
 
 % Commands to execute inside the figure environment.
 % Can be customised by the document class.

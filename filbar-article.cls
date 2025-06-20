@@ -47,6 +47,10 @@
 % Plain page style with no headings
 \pagestyle{plain.scrheadings}
 
+% THEOREM NUMBERING
+% Number theorems within sections
+\def\filbar@numbertheoremswithin{section}
+
 % LOAD the common styles
 \RequirePackage{filbar-common}
 
