@@ -113,7 +113,7 @@ filbar@chapter heading/.pic={
                     \q{\j}=\h{\i}*\q{\j}/\q{\c};
                 };
             }
-            \draw[yscale=\yscale,line cap=round,line width=1.25pt] \foreach \j [parse=true,evaluate=\j as \jj using {int(\j-1)},evaluate=\j as \col using {\j==1?int(50*(1-cos(\i/\n*360))):random(100)}] in {1,...,\c} {
+            \draw[yscale=\yscale,line cap=round,line width=1.25pt] \foreach \j [parse=true,evaluate=\j as \jj using {int(\j-1)},evaluate=\j as \col using {\j==1?int(50*(1-cos(\i/\n*360))):random(10,100)}] in {1,...,\c} {
                 ($(text.\anchor)+(\x pt,\q{\jj}*\height)$) edge[filbar theme color!\col] ($(text.\anchor)+(\x pt,{\q{\j}*\height-(\j<\c)*2.5pt})$)
             };
         }
