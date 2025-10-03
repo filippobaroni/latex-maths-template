@@ -5,16 +5,26 @@
 \RequirePackage{zref-clever}
 
 \@ifundefined{filbar@numbertheoremswithin}{\def\filbar@numbertheoremswithin{section}}{}
-\declaretheorem[numberwithin=\filbar@numbertheoremswithin]{theorem}
-\declaretheorem[numberlike=theorem]{lemma}
-\declaretheorem[numberlike=theorem]{corollary}
-\declaretheorem[numberlike=theorem]{proposition}
-\declaretheorem[numberlike=theorem,style=remark]{remark}
-\declaretheorem[numberlike=theorem,style=definition]{definition}
+% There is a bug in thmtools that does not correctly update the anchor counter
+% See https://github.com/latex3/hyperref/issues/359
+\NewDocumentCommand{\declaretheoremwithfix}{O{} m}{%
+    \declaretheorem[#1]{#2}%
+    \expandafter\let\csname theH#2\endcsname\relax
+    \expandafter\gdef\csname theH#2\endcsname{\csname the\filbar@numbertheoremswithin\endcsname .\arabic {#2}}%
+}
 
-\declaretheorem[name=Theorem]{theoremintro}
+
+\declaretheoremwithfix[numberwithin=\filbar@numbertheoremswithin]{theorem}
+\declaretheoremwithfix[numberlike=theorem]{lemma}
+\declaretheoremwithfix[numberlike=theorem]{corollary}
+\declaretheoremwithfix[numberlike=theorem]{proposition}
+\declaretheoremwithfix[numberlike=theorem,style=remark]{remark}
+\declaretheoremwithfix[numberlike=theorem,style=definition]{definition}
+
+
+\declaretheoremwithfix[name=Theorem]{theoremintro}
 \renewcommand*{\thetheoremintro}{\Alph{theoremintro}}
-\declaretheorem[numberlike=theoremintro,name=Corollary]{corollaryintro}
+\declaretheoremwithfix[numberlike=theoremintro,name=Corollary]{corollaryintro}
 \renewcommand*{\thecorollaryintro}{\Alph{corollaryintro}}
 \zcRefTypeSetup{theoremintro}{
     Name-sg=Theorem,
